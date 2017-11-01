@@ -1,0 +1,68 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "parser": "babel-eslint",
+    "extends": ["eslint:recommended", "plugin:react/all"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y"
+    ],
+    "rules": {
+     "import/newline-after-import": 0,
+     "import/no-extraneous-dependencies": 0,
+     "import/no-named-as-default": 0,
+     "import/prefer-default-export": 0,
+     "jsx-a11y/aria-props": 2,
+     "jsx-a11y/heading-has-content": 0,
+     "jsx-a11y/href-no-hash": 2,
+     "jsx-a11y/label-has-for": 2,
+     "jsx-a11y/mouse-events-have-key-events": 2,
+     "jsx-a11y/role-has-required-aria-props": 2,
+     "jsx-a11y/role-supports-aria-props": 2,
+
+     "react/jsx-filename-extension": 0,
+     "react/jsx-indent": [1,  2],
+     "react/jsx-indent-props": [1,  2],
+     "react/no-set-state": 0,
+     "react/jsx-handler-names": [1, {
+       "eventHandlerPrefix": "on",
+       "eventHandlerPropPrefix": "on"
+     }],
+     "react/jsx-no-literals": 0,
+     "react/jsx-max-props-per-line": [1, { "maximum": 2 }],
+     "react/jsx-no-bind": [1, {
+       "ignoreRefs": true
+     }],
+     "react/no-danger": 0,
+
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
+}

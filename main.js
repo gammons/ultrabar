@@ -1,24 +1,26 @@
 import { app, BrowserWindow } from 'electron'
-import path from 'path'
-import url from 'url'
 
-import mountAsDock from './x11-mounter'
+import mountAsDock from './system/x11-mounter'
+import ConfigManager from './system/config'
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 200,
     frame: false,
-    title: "Ultrabar",
+    title: 'Ultrabar',
   })
 
-  win.setTitle("ultrabar")
+  win.setTitle('ultrabar')
 
-  win.loadURL('http://localhost:3000');
+  win.loadURL('http://localhost:3000')
+
+  mountAsDock()
 }
 
 app.on('ready', createWindow)
 app.setName('Ultrabar')
 
-mountAsDock()
+const configManager = new ConfigManager()
+console.log(configManager.getConfig())
 
