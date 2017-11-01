@@ -18,10 +18,7 @@ const mountAsDock = () => {
       })
     }
 
-
-
-    // X.on('event', e => { console.log("X event is ", e) })
-    // X.on('error', e => { console.log("X error is ", e) })
+    X.on('error', e => { console.log("X error is ", e) })
 
     const queryTree = (id, name, resolve) => {
       X.QueryTree(id, (err, tree) => {
