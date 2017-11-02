@@ -21,7 +21,7 @@ export default class Config {
       this.config = yaml.safeLoad(fs.readFileSync(`${os.homedir}/.config/ultrabar/ultrabar.yml`, 'utf8'))
 
     } catch (e) {
-      console.log('Could not read configuration')
+      console.log('Could not read configuration', e)
     }
   }
 }
