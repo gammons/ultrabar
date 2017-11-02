@@ -1,7 +1,9 @@
 import { app, BrowserWindow } from 'electron'
 
-import mountAsDock from './system/x11-mounter'
-import ConfigManager from './system/config'
+//import mountAsDock from './system/x11-mounter'
+// import ConfigManager from './system/config'
+// import Store from './system/store'
+//import * as constants from './src/constants'
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -13,14 +15,18 @@ const createWindow = () => {
 
   win.setTitle('ultrabar')
 
-  win.loadURL('http://localhost:3000')
+  win.loadURL('file://' + __dirname + '/public/index.html')
+  win.webContents.openDevTools();
 
-  mountAsDock()
+  //mountAsDock()
 }
 
 app.on('ready', createWindow)
 app.setName('Ultrabar')
 
-const configManager = new ConfigManager()
-console.log(configManager.getConfig())
-
+// const store = new Store()
+// const configManager = new ConfigManager()
+//
+// store.ready(() => {
+//   store.dispatch(constants.LOAD_CONFIG, configManager.getConfig())
+// })

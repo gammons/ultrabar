@@ -11,6 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="left-modules">
+        <p>here I am bitches</p>
         {React.createElement(modules["time"].default)}
       </div>
     )
