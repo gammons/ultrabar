@@ -1,5 +1,5 @@
 export default class Logger {
-  info(msg) {
+  info(...msg) {
     console.log('Info:', msg)
   }
 }

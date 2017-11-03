@@ -15,11 +15,4 @@ const Wrapper = () => {
   )
 }
 
-const Test = () => {
-  return(
-    <p>testing</p>
-  )
-
-}
-
 ReactDOM.render(<Wrapper />, document.getElementById('content'))

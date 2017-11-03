@@ -2,12 +2,13 @@ import { ipcMain } from 'electron'
 import Logger from './logger'
 
 export default class Store {
-  constructor() {
+  constructor(webContents) {
     this.state = {}
     this.logger = new Logger()
     this.initialized = false
     this.listeners = []
     this.readyListeners = []
+    this.webContents = webContents
 
     ipcMain.on('state-change', (state) => {
       this.logger.info('backend state change to ', state)
@@ -30,9 +31,8 @@ export default class Store {
     })
   }
 
-  dispatch(actionType, args) {
-    this.logger.info('backend dispatch', actionType, args)
-    ipcMain.send('dispatch', actionType, args)
+  dispatch(action) {
+    this.webContents.send('dispatch', action)
   }
 
   addListener(listener) {

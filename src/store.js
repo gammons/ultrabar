@@ -1,7 +1,8 @@
-import { createStore, compose  } from 'redux'
-import createLogger from 'redux-logger'
+import { createStore, applyMiddleware, compose  } from 'redux'
+import { createLogger } from 'redux-logger'
 import rootReducer from './reducers'
 import { ipcRenderer } from 'electron'
+import { reset } from './actions/reset-actions'
 
 const logger = createLogger({
   level: 'info',
@@ -13,16 +14,15 @@ const middleware = []
 
 const devTools = window.devToolsExtension || (() => noop => noop)
 
-if (process.env.NODE_ENV === 'development') {
-  middleware.push(logger)
-}
+middleware.push(logger)
 
 const enhancers = [
-  //applyMiddleware(...middleware),
+  applyMiddleware(...middleware),
   devTools(),
 ]
 
 const initializeStore = () => {
+  console.log("initializing store")
   const store = createStore(
     rootReducer,
     initialState,
@@ -30,12 +30,15 @@ const initializeStore = () => {
   )
 
   store.subscribe(() => {
-    ipcRenderer.sendSync('state-change', store.getState())
+    console.log("STORE UPDATE EVENT")
+    ipcRenderer.send('state-change', store.getState())
   })
 
-  ipcRenderer.on('dispatch', (actionType, args) => {
-    store.dispatch({type: actionType, args})
+  ipcRenderer.on('dispatch', (event, action) => {
+    console.log("DISPATCH EVENT action = ", action)
+    store.dispatch(action)
   })
+
   return store
 }
 export default initializeStore
