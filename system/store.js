@@ -5,9 +5,7 @@ export default class Store {
   constructor(webContents) {
     this.state = {}
     this.logger = new Logger()
-    this.initialized = false
     this.listeners = []
-    this.readyListeners = []
     this.webContents = webContents
 
     ipcMain.on('state-change', (state) => {
@@ -17,13 +15,6 @@ export default class Store {
   }
 
   setState(state) {
-    if (!this.initialized) {
-      this.readyListeners.forEach(l => {
-        l()
-      })
-    }
-
-    this.initialized = true
     this.state = state
 
     this.listeners.forEach(l => {
@@ -37,9 +28,5 @@ export default class Store {
 
   addListener(listener) {
     this.listeners.push(listener)
-  }
-
-  ready(listener) {
-    this.readyListeners.push(listener)
   }
 }

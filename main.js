@@ -23,21 +23,9 @@ const createWindow = () => {
   const store = new Store(win.webContents)
   const configManager = new ConfigManager()
 
-  // ipcRenderer.on('dispatch', (actionType, args) => {
-  //   console.log("ipcRenderer dispatch = ", actionType, args)
-  //   store.dispatch({type: actionType, args})
-  // })
-
-
   win.webContents.on('did-finish-load', () => {
-    console.log("did finish load event")
     store.dispatch(loadConfig(configManager.getConfig()))
   })
-
-  // win.webContents.on('did-finish-load', () => { })
-  // store.ready(() => {
-  //   console.log("store is ready")
-  //})
 }
 
 app.on('ready', createWindow)
