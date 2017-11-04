@@ -2,9 +2,9 @@ import { app, BrowserWindow } from 'electron'
 
 import mountAsDock from './system/x11-mounter'
 import ConfigManager from './system/config'
+import ModuleRunner from './system/module-runner'
 import Store from './system/store'
-
-import { loadConfig } from './src/actions/config-actions'
+import * as constants from './src/constants'
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -19,12 +19,15 @@ const createWindow = () => {
   win.loadURL('file://' + __dirname + '/public/index.html')
   win.webContents.openDevTools()
 
-  //mountAsDock()
+  // mountAsDock()
   const store = new Store(win.webContents)
-  const configManager = new ConfigManager()
+  const config = new ConfigManager().getConfig()
+
+  const moduleRunner = new ModuleRunner(config, store)
 
   win.webContents.on('did-finish-load', () => {
-    store.dispatch(loadConfig(configManager.getConfig()))
+    store.dispatch({ type: constants.LOAD_CONFIG, config })
+    moduleRunner.startProcessing()
   })
 }
 
