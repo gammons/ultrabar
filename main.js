@@ -4,6 +4,9 @@ import mountAsDock from './system/x11-mounter'
 import ConfigManager from './system/config'
 import ModuleRunner from './system/module-runner'
 import Store from './system/store'
+
+import I3Client from './system/internal_modules/i3'
+
 import * as constants from './src/constants'
 
 const createWindow = () => {
@@ -19,15 +22,17 @@ const createWindow = () => {
   win.loadURL('file://' + __dirname + '/public/index.html')
   win.webContents.openDevTools()
 
-  // mountAsDock()
+  mountAsDock()
   const store = new Store(win.webContents)
   const config = new ConfigManager().getConfig()
 
   const moduleRunner = new ModuleRunner(config, store)
 
+
   win.webContents.on('did-finish-load', () => {
     store.dispatch({ type: constants.LOAD_CONFIG, config })
     moduleRunner.startProcessing()
+    const i3Client = new I3Client(store)
   })
 }
 

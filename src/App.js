@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './App.css'
 
 const modules = {}
+modules["i3"] = require('./system-modules/i3')
 
 const mapStateToModuleProps = (state) => {
   return {modules: state.modules}
@@ -10,10 +11,14 @@ const mapStateToModuleProps = (state) => {
 
 class App extends Component {
   renderModule(module) {
-    if (typeof(modules[module.name]) === 'undefined') {
-      modules[module.name] = require(`./ultrabar/${module.name}/view`)
+    if (module.system === undefined) {
+      if (typeof(modules[module.name]) === 'undefined') {
+        modules[module.name] = require(`./ultrabar/${module.name}/view`)
+      }
+      return React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))
+    } else {
+      return React.createElement(connect(mapStateToModuleProps)(modules[module.system].default))
     }
-    return React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))
   }
 
   render() {

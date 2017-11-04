@@ -9,7 +9,9 @@ export default class ModuleRunner {
 
   startProcessing() {
     this.config.right_modules.forEach(m => {
-      this.update(m)
+      if (m.updateInterval) {
+        this.update(m)
+      }
     })
   }
 
