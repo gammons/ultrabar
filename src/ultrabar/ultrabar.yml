@@ -1,6 +1,7 @@
-right_modules:
+height: 50
+left_modules:
   - system: i3
+
+right_modules:
   - name: time
     updateInterval: 1
-  - name: time2
-    updateInterval: 5

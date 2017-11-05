@@ -17,9 +17,7 @@ export default class Store {
   setState(state) {
     this.state = state
 
-    this.listeners.forEach(l => {
-      l()
-    })
+    this.listeners.forEach(l => { l() })
   }
 
   dispatch(action) {

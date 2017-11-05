@@ -20,11 +20,12 @@ const createWindow = () => {
   win.setTitle('ultrabar')
 
   win.loadURL('file://' + __dirname + '/public/index.html')
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
-  mountAsDock()
   const store = new Store(win.webContents)
   const config = new ConfigManager().getConfig()
+
+  //mountAsDock({height: config.height})
 
   const moduleRunner = new ModuleRunner(config, store)
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import './App.css'
+import './app.css'
+import './theme.css'
 
 const modules = {}
 modules["i3"] = require('./system-modules/i3')
@@ -15,16 +16,31 @@ class App extends Component {
       if (typeof(modules[module.name]) === 'undefined') {
         modules[module.name] = require(`./ultrabar/${module.name}/view`)
       }
-      return React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))
+      return(
+        <div className="module">
+          {React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))}
+        </div>)
     } else {
-      return React.createElement(connect(mapStateToModuleProps)(modules[module.system].default))
+      return(
+        <div className="module">
+          {React.createElement(connect(mapStateToModuleProps)(modules[module.system].default))}
+        </div>
+      )
     }
   }
 
   render() {
     return (
-      <div className="left-modules">
-        {this.props.right_modules.map(this.renderModule.bind(this))}
+      <div id="dock" style={{height: this.props.height}}>
+        <div className="left-modules">
+          {this.props.left_modules.map(this.renderModule.bind(this))}
+        </div>
+        <div className="center-modules">
+          {this.props.center_modules.map(this.renderModule.bind(this))}
+        </div>
+        <div className="right-modules">
+          {this.props.right_modules.map(this.renderModule.bind(this))}
+        </div>
       </div>
     )
   }
@@ -33,7 +49,10 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     modules: state.modules,
+    height: state.config.height,
+    left_modules: (state.config.left_modules || []),
     right_modules: (state.config.right_modules || []),
+    center_modules: (state.config.center_modules || []),
   }
 }
 

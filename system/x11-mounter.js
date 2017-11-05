@@ -1,7 +1,7 @@
 import x11 from 'x11'
 import * as x11Prop from 'x11-prop'
 
-const mountAsDock = () => {
+const mountAsDock = (opts) => {
   x11.createClient((err, display) => {
     const X = display.client
     const root = display.screen[0].root
@@ -58,7 +58,7 @@ const mountAsDock = () => {
         }
       })
 
-      X.ConfigureWindow(id, {x: 0, y: 0, width: 50, height: 50}, (err) => {
+      X.ConfigureWindow(id, {x: 0, y: 0, width: 50, height: opts.height}, (err) => {
         console.log("ConfigureWindow err = ", err)
       })
 
