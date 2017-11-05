@@ -1,9 +1,10 @@
 html {
   background-color: #2a2a2a;
+  overflow: hidden;
 }
 
 #dock {
-  border: 1px solid red;
+  border-bottom: 1px solid red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
