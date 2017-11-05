@@ -16,7 +16,7 @@ export default class ModuleRunner {
   }
 
   update(module) {
-    const result = execSync(`./src/ultrabar/${module.name}/update`).toString()
+    const result = execSync(`/home/grant/.config/ultrabar/${module.name}/update`).toString()
     const ret = {type: constants.MODULE_UPDATE, name: module.name, result}
     this.store.dispatch(ret)
     setTimeout(this.update.bind(this, module), module.updateInterval * 1000)

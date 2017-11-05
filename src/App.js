@@ -14,7 +14,7 @@ class App extends Component {
   renderModule(module) {
     if (module.system === undefined) {
       if (typeof(modules[module.name]) === 'undefined') {
-        modules[module.name] = require(`./ultrabar/${module.name}/view`)
+        modules[module.name] = require(`ultrabar/${module.name}/view`)
       }
       return(
         <div className="module">
