@@ -22,7 +22,6 @@ const enhancers = [
 ]
 
 const initializeStore = () => {
-  console.log("initializing store")
   const store = createStore(
     rootReducer,
     initialState,
@@ -30,12 +29,10 @@ const initializeStore = () => {
   )
 
   store.subscribe(() => {
-    console.log("STORE UPDATE EVENT")
     ipcRenderer.send('state-change', store.getState())
   })
 
   ipcRenderer.on('dispatch', (event, action) => {
-    console.log("DISPATCH EVENT action = ", action)
     store.dispatch(action)
   })
 

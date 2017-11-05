@@ -1,5 +1,6 @@
 import { ipcMain } from 'electron'
 import Logger from './logger'
+import _ from 'lodash'
 
 export default class Store {
   constructor(webContents) {
@@ -8,16 +9,17 @@ export default class Store {
     this.listeners = []
     this.webContents = webContents
 
-    ipcMain.on('state-change', (state) => {
+    ipcMain.on('state-change', (_, state) => {
       this.logger.info('backend state change to ', state)
       this.setState(state)
     })
   }
 
   setState(state) {
+    const oldState = _.cloneDeep(this.state)
     this.state = state
 
-    this.listeners.forEach(l => { l() })
+    this.listeners.forEach(l => { l(oldState, state) })
   }
 
   dispatch(action) {

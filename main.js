@@ -1,13 +1,13 @@
 import { app, BrowserWindow } from 'electron'
 
-import mountAsDock from './system/x11-mounter'
+import { dockify, windowify } from './system/x11-mounter'
 import ConfigManager from './system/config'
 import ModuleRunner from './system/module-runner'
 import Store from './system/store'
-
 import I3Client from './system/internal_modules/i3'
-
 import * as constants from './src/constants'
+
+const config = new ConfigManager().getConfig()
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -20,15 +20,13 @@ const createWindow = () => {
   win.setTitle('ultrabar')
 
   win.loadURL('file://' + __dirname + '/public/index.html')
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   const store = new Store(win.webContents)
-  const config = new ConfigManager().getConfig()
 
-  //mountAsDock({height: config.height})
+  setupDockToggler(store, config)
 
   const moduleRunner = new ModuleRunner(config, store)
-
 
   win.webContents.on('did-finish-load', () => {
     store.dispatch({ type: constants.LOAD_CONFIG, config })
@@ -40,3 +38,15 @@ const createWindow = () => {
 app.on('ready', createWindow)
 app.setName('Ultrabar')
 
+const setupDockToggler = (store, config) => {
+  store.addListener((oldState, newState) => {
+    if (oldState.dock && oldState.dock.docked != newState.dock.docked) {
+      if (newState.dock.docked) {
+        dockify({height: config.height})
+      } else {
+        console.log("windowifying...")
+        windowify()
+      }
+    }
+  })
+}

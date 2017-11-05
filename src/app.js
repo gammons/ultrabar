@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { toggleDock } from './actions/dock-actions'
 import { connect } from 'react-redux'
 import './app.css'
 import './theme.css'
@@ -11,6 +12,11 @@ const mapStateToModuleProps = (state) => {
 }
 
 class App extends Component {
+
+  onToggleDock() {
+    this.props.toggleDock()
+  }
+
   renderModule(module) {
     if (module.system === undefined) {
       if (typeof(modules[module.name]) === 'undefined') {
@@ -41,6 +47,7 @@ class App extends Component {
         <div className="right-modules">
           {this.props.right_modules.map(this.renderModule.bind(this))}
         </div>
+        <button onClick={this.onToggleDock.bind(this)}>Toggle Dock</button>
       </div>
     )
   }
@@ -56,4 +63,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { toggleDock })(App)
