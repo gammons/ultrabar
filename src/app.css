@@ -1,0 +1,19 @@
+html {
+  background-color: #2a2a2a;
+}
+
+#dock {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module {
+  border: 1px solid blue;
+}
+
+.left-modules {
+
+}
