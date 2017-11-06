@@ -15,18 +15,18 @@ class App extends Component {
     this.props.toggleDock()
   }
 
-  renderModule(module) {
+  renderModule(module, idx) {
     if (module.system === undefined) {
       if (typeof(modules[module.name]) === 'undefined') {
         modules[module.name] = require(`ultrabar/${module.name}/view`)
       }
       return(
-        <div className="module">
+        <div key={idx} className="module">
           {React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))}
         </div>)
     } else {
       return(
-        <div className="module">
+        <div key={idx} className="module">
           {React.createElement(connect(mapStateToModuleProps)(modules[module.system].default))}
         </div>
       )

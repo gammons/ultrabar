@@ -16,12 +16,8 @@ export default class I3Client {
 
   getWorkspaces() {
     this.i3.workspaces((_, workspaces) => {
-      const nums = workspaces.map(w => w.num)
-      const current = workspaces.filter(w => w.visible)[0].num
-      const ret = {type: constants.MODULE_UPDATE, name: 'i3_workspaces', result: nums}
+      const ret = {type: constants.MODULE_UPDATE, name: 'i3_workspaces', result: workspaces}
       this.store.dispatch(ret)
-      const ret2 = {type: constants.MODULE_UPDATE, name: 'i3_current_workspace', result: current}
-      this.store.dispatch(ret2)
     })
   }
 }

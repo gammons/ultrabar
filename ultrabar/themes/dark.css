@@ -1,3 +1,14 @@
 #dock {
-  background-color: green;
+  background-color: #333;
+  color: #ccc;
+  font-size: 20px;
+
+}
+
+.workspace {
+  padding: 15px;
+}
+
+.workspace.visible {
+  background-color: #666;
 }

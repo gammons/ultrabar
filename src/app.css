@@ -11,22 +11,15 @@ html {
   align-items: center;
 }
 
-.module {
-  border: 1px solid blue;
-}
-
 .left-modules {
-  border: 1px solid blue;
   text-align: left;
 }
 
 .center-modules {
-  border: 1px solid yellow;
   text-align: center;
 }
 
 .right-modules {
-  border: 1px solid green;
   text-align: right;
 }
 
