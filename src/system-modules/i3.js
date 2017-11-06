@@ -15,7 +15,7 @@ export default class I3 extends Component {
     }
     return(
       <div className={classNames.join(" ")} key={idx}>
-        {idx + 1}
+        {workspace.num}
       </div>
     )
   }
