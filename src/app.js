@@ -5,29 +5,34 @@ import './app.css'
 
 const modules = {}
 modules["i3"] = require('./system-modules/i3')
-
-const mapStateToModuleProps = (state) => {
-  return {modules: state.modules}
-}
+modules["time"] = require('./system-modules/time')
 
 class App extends Component {
   onToggleDock() {
     this.props.toggleDock()
   }
 
-  renderModule(module, idx) {
-    if (module.system === undefined) {
-      if (typeof(modules[module.name]) === 'undefined') {
-        modules[module.name] = require(`ultrabar/${module.name}/view`)
+  renderModule(mod, idx) {
+    const mapStateToModuleProps = (state) => {
+      return {
+        modules: state.modules,
+        confit: state.config,
+        moduleConfig: mod,
+      }
+    }
+
+    if (mod.system === undefined) {
+      if (typeof(mod[mod.name]) === 'undefined') {
+        mod[mod.name] = require(`ultrabar/${mod.name}/view`)
       }
       return(
         <div key={idx} className="module">
-          {React.createElement(connect(mapStateToModuleProps)(modules[module.name].default))}
+          {React.createElement(connect(mapStateToModuleProps)(modules[mod.name].default))}
         </div>)
     } else {
       return(
         <div key={idx} className="module">
-          {React.createElement(connect(mapStateToModuleProps)(modules[module.system].default))}
+          {React.createElement(connect(mapStateToModuleProps)(modules[mod.system].default))}
         </div>
       )
     }
