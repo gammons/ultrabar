@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { toggleDock } from './actions/dock-actions'
 import { connect } from 'react-redux'
 import './app.css'
-import './theme.css'
 
 const modules = {}
 modules["i3"] = require('./system-modules/i3')
@@ -12,7 +11,6 @@ const mapStateToModuleProps = (state) => {
 }
 
 class App extends Component {
-
   onToggleDock() {
     this.props.toggleDock()
   }
@@ -35,9 +33,16 @@ class App extends Component {
     }
   }
 
+  renderTheme() {
+    if (this.props.themeFile) {
+      require(`ultrabar/themes/${this.props.themeFile}.css`)
+    }
+  }
+
   render() {
     return (
       <div id="dock" style={{height: this.props.height}}>
+        {this.renderTheme()}
         <div className="left-modules">
           {this.props.left_modules.map(this.renderModule.bind(this))}
         </div>
@@ -46,8 +51,8 @@ class App extends Component {
         </div>
         <div className="right-modules">
           {this.props.right_modules.map(this.renderModule.bind(this))}
+          <button className="toggler" style={{float: "right"}} onClick={this.onToggleDock.bind(this)}>Toggle Dock</button>
         </div>
-        <button onClick={this.onToggleDock.bind(this)}>Toggle Dock</button>
       </div>
     )
   }
@@ -57,6 +62,7 @@ const mapStateToProps = (state) => {
   return {
     modules: state.modules,
     height: state.config.height,
+    themeFile: state.config.theme,
     left_modules: (state.config.left_modules || []),
     right_modules: (state.config.right_modules || []),
     center_modules: (state.config.center_modules || []),

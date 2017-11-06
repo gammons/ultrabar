@@ -1,6 +1,11 @@
 height: 50
+theme: dark
 left_modules:
   - system: i3
+
+center_modules:
+  - name: time
+    updateInterval: 1
 
 right_modules:
   - name: time

@@ -16,5 +16,22 @@ html {
 }
 
 .left-modules {
+  border: 1px solid blue;
+  text-align: left;
+}
 
+.center-modules {
+  border: 1px solid yellow;
+  text-align: center;
+}
+
+.right-modules {
+  border: 1px solid green;
+  text-align: right;
+}
+
+button.toggler {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
