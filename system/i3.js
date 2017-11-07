@@ -1,6 +1,6 @@
 import { createClient } from 'i3'
 
-import * as constants from '../../src/constants'
+import * as constants from '../src/constants'
 
 export default class I3Client {
   constructor(store) {

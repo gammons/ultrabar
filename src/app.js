@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import './app.css'
 
 const modules = {}
-modules["i3"] = require('./system-modules/i3')
-modules["time"] = require('./system-modules/time')
 
 class App extends Component {
   onToggleDock() {
@@ -22,17 +20,20 @@ class App extends Component {
     }
 
     if (mod.system === undefined) {
-      if (typeof(mod[mod.name]) === 'undefined') {
-        mod[mod.name] = require(`ultrabar/${mod.name}/view`)
+      if (typeof(modules[mod.name]) === 'undefined') {
+        modules[mod.name] = connect(mapStateToModuleProps)(require(`ultrabar/${mod.name}/view`).default)
       }
       return(
         <div key={idx} className="module">
-          {React.createElement(connect(mapStateToModuleProps)(modules[mod.name].default))}
+          {React.createElement(modules[mod.name])}
         </div>)
     } else {
+      if (typeof(modules[mod.system]) === 'undefined') {
+        modules[mod.system] = connect(mapStateToModuleProps)(require(`./system-modules/${mod.system}`).default)
+      }
       return(
         <div key={idx} className="module">
-          {React.createElement(connect(mapStateToModuleProps)(modules[mod.system].default))}
+          {React.createElement(modules[mod.system])}
         </div>
       )
     }

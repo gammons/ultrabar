@@ -4,7 +4,7 @@ import { dockify, windowify } from './system/x11-mounter'
 import ConfigManager from './system/config'
 import ModuleRunner from './system/module-runner'
 import Store from './system/store'
-import I3Client from './system/internal_modules/i3'
+import I3Client from './system/i3'
 import * as constants from './src/constants'
 
 const config = new ConfigManager().getConfig()
