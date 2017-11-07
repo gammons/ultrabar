@@ -20,7 +20,7 @@ const createWindow = () => {
   win.setTitle('ultrabar')
 
   win.loadURL('file://' + __dirname + '/public/index.html')
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   const store = new Store(win.webContents)
 
