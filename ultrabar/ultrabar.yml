@@ -1,7 +1,12 @@
 height: 50
 theme: dark
+
 left_modules:
   - system: i3
+
+center_modules:
+  - system: cpu
+    updateInterval: 1
 
 right_modules:
   - system: time
