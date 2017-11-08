@@ -5,8 +5,8 @@ left_modules:
   - system: i3
 
 center_modules:
-  - system: cpu
-    updateInterval: 1
+  - system: cpu-core-bar
+    updateInterval: 20
 
 right_modules:
   - system: time
